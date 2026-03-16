@@ -3,15 +3,14 @@ name: Attendance Reminder
 on:
   schedule:
     - cron: "0 16 * * 1"   # Monday 12pm ET (EDT)
-    - cron: "0 16 * * 5"   # Friday 12pm ET (EDT)
-    - cron: "0 21 * * 6"   # Saturday 5pm ET (EDT)
+    - cron: "0 16 * * 6"   # Saturday 12pm ET (EDT)
   workflow_dispatch:
     inputs:
       day:
         description: "Force day (mon/fri/sat)"
         required: true
         type: choice
-        options: [mon, fri, sat]
+        options: [mon, sat]
       dry_run:
         description: "Dry run (no send)"
         type: boolean
@@ -36,7 +35,6 @@ jobs:
             DOW=$(date -u +%u)
             case $DOW in
               1) echo "day=mon" >> "$GITHUB_OUTPUT" ;;
-              5) echo "day=fri" >> "$GITHUB_OUTPUT" ;;
               6) echo "day=sat" >> "$GITHUB_OUTPUT" ;;
               *) echo "day=skip" >> "$GITHUB_OUTPUT" ;;
             esac

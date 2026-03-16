@@ -31,16 +31,21 @@ def get_current_person() -> str:
     return ROTATION[week_index]
 
 
+def get_saturday_date() -> str:
+    today = datetime.date.today()
+    days_until_sat = (5 - today.weekday()) % 7
+    saturday = today + datetime.timedelta(days=days_until_sat)
+    return saturday.strftime("%B %d")
+
+
 def build_message(day: str, person: str) -> str:
-    if day in ("mon", "fri"):
+    if day == "mon":
+        sat_date = get_saturday_date()
         return (
-            f"\U0001f4cb Reminder: {person} will be handling Saturday "
-            f"attendance this week. Please confirm! \u2705"
+            f"{person} will be taking attendance on Saturday {sat_date}. "
+            f"Please like this message to confirm \U0001f601"
         )
-    return (
-        f"\U0001f514 Final reminder: {person} - Saturday attendance "
-        f"is today! \U0001f44d"
-    )
+    return f"Don't forget that today {person} will be taking attendance!"
 
 
 def send_message(api_url: str, instance: str, token: str, chat_id: str, message: str) -> None:
@@ -61,7 +66,7 @@ def send_message(api_url: str, instance: str, token: str, chat_id: str, message:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--day", required=True, choices=["mon", "fri", "sat"])
+    parser.add_argument("--day", required=True, choices=["mon", "sat"])
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
