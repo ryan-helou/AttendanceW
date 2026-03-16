@@ -1,0 +1,57 @@
+name: Attendance Reminder
+
+on:
+  schedule:
+    - cron: "0 16 * * 1"   # Monday 12pm ET (EDT)
+    - cron: "0 16 * * 5"   # Friday 12pm ET (EDT)
+    - cron: "0 21 * * 6"   # Saturday 5pm ET (EDT)
+  workflow_dispatch:
+    inputs:
+      day:
+        description: "Force day (mon/fri/sat)"
+        required: true
+        type: choice
+        options: [mon, fri, sat]
+      dry_run:
+        description: "Dry run (no send)"
+        type: boolean
+        default: false
+
+jobs:
+  send-reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Determine day
+        id: day
+        run: |
+          if [ -n "${{ inputs.day }}" ]; then
+            echo "day=${{ inputs.day }}" >> "$GITHUB_OUTPUT"
+          else
+            DOW=$(date -u +%u)
+            case $DOW in
+              1) echo "day=mon" >> "$GITHUB_OUTPUT" ;;
+              5) echo "day=fri" >> "$GITHUB_OUTPUT" ;;
+              6) echo "day=sat" >> "$GITHUB_OUTPUT" ;;
+              *) echo "day=skip" >> "$GITHUB_OUTPUT" ;;
+            esac
+          fi
+
+      - name: Send reminder
+        if: steps.day.outputs.day != 'skip'
+        env:
+          GREEN_API_URL: ${{ secrets.GREEN_API_URL }}
+          GREEN_API_INSTANCE: ${{ secrets.GREEN_API_INSTANCE }}
+          GREEN_API_TOKEN: ${{ secrets.GREEN_API_TOKEN }}
+          GROUP_CHAT_ID: ${{ secrets.GROUP_CHAT_ID }}
+        run: |
+          FLAGS="--day ${{ steps.day.outputs.day }}"
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            FLAGS="$FLAGS --dry-run"
+          fi
+          python reminder.py $FLAGS
