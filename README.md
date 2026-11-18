@@ -1,6 +1,12 @@
+<div align="center">
+
 # Attendance Reminder Bot
 
-A small bot that reminds a WhatsApp group whose turn it is to take attendance each Saturday.
+**A small bot that reminds a WhatsApp group whose turn it is to take attendance each Saturday.**
+
+</div>
+
+<br>
 
 A group of five people takes turns taking attendance, one person per week. Instead of someone keeping track by hand, this bot works out whose week it is and posts a reminder to the group chat automatically. It runs on a schedule in the cloud, so nobody has to remember to start it.
 
