@@ -1,9 +1,14 @@
-# 🔔 AttendanceW
+# Attendance Reminder Bot
 
-*A WhatsApp bot that reminds our group whose turn it is to take Saturday attendance.*
+A small bot that reminds a WhatsApp group whose turn it is to take attendance each Saturday.
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white) ![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=flat-square&logo=whatsapp&logoColor=white)
+A group of five people takes turns taking attendance, one person per week. Instead of someone keeping track by hand, this bot works out whose week it is and posts a reminder to the group chat automatically. It runs on a schedule in the cloud, so nobody has to remember to start it.
 
-Attendance rotates weekly through five of us, anchored to the week of March 16, 2026. The bot works out whose week it is and posts to the group chat through Green API. On Monday it names that person and the upcoming Saturday's date and asks everyone to like the message to confirm; on Saturday morning it sends a shorter "don't forget, today it's your turn" nudge.
+## What it does
 
-It's just one stdlib Python script driven by GitHub Actions, which fires the Monday and Saturday crons at 16:00 UTC (noon Eastern in summer). A second `keepalive` workflow commits a timestamp on the 1st and 15th of each month, because GitHub disables scheduled workflows after 60 days without repo activity and these reminders need to keep running past then.
+- Every Monday, it posts a message naming that week's person and the date of the coming Saturday, and asks the group to like the message to confirm.
+- Every Saturday, it sends a short "don't forget, it's your turn today" reminder.
+- It rotates through the group in a fixed order, one person per week.
+- It can be run by hand in a "practice" mode that shows the message without sending it.
+
+This is a small, single-purpose tool: one short script plus the scheduling setup that runs it.
