@@ -2,7 +2,7 @@
 
 # Attendance Reminder Bot
 
-**A small bot that reminds a WhatsApp group whose turn it is to take attendance each Saturday.**
+**A bot that reminds a WhatsApp group whose turn it is to take attendance each Saturday.**
 
 <!-- facts --><img alt="Runs: on its own" src="https://img.shields.io/badge/Runs-on_its_own-24292f?style=for-the-badge"> <img alt="Posts: Mon + Sat at noon" src="https://img.shields.io/badge/Posts-Mon_%2B_Sat_at_noon-24292f?style=for-the-badge"> <img alt="Rotation: 5 people, weekly" src="https://img.shields.io/badge/Rotation-5_people,_weekly-24292f?style=for-the-badge">
 
@@ -19,4 +19,4 @@ A group of five people takes turns taking attendance, one person per week. Inste
 - It rotates through the group in a fixed order, one person per week.
 - It can be run by hand in a "practice" mode that shows the message without sending it.
 
-This is a small, single-purpose tool: one short script plus the scheduling setup that runs it.
+It is a single-purpose tool: one script plus the scheduling setup that runs it.
