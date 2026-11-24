@@ -4,6 +4,8 @@
 
 **A small bot that reminds a WhatsApp group whose turn it is to take attendance each Saturday.**
 
+<!-- facts --><img alt="Runs on: GitHub Actions" src="https://img.shields.io/badge/Runs_on-GitHub_Actions-24292f?style=for-the-badge"> <img alt="Posts: Mon + Sat, noon ET" src="https://img.shields.io/badge/Posts-Mon_%2B_Sat,_noon_ET-24292f?style=for-the-badge"> <img alt="Rotation: 5 people, weekly" src="https://img.shields.io/badge/Rotation-5_people,_weekly-24292f?style=for-the-badge">
+
 </div>
 
 <br>
